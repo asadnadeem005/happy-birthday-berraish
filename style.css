@@ -513,7 +513,9 @@ body::before{
   #music-tooltip{ display:none; }
 }
 
-
+.position-relative{
+    position: relative;
+}
 
 
 /* secert  */
@@ -563,7 +565,7 @@ body::before{
   user-select: none;
   /* background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12); */
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  /* box-shadow: 0 10px 30px rgba(0,0,0,0.25); */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 999999;
 }
