@@ -306,4 +306,80 @@ $(document).ready(function () {
   $("#herName, #hisName").on("keydown", function (e) {
     if (e.key === "Enter") runMeter();
   });
+
+
+
+
+/* =========================
+   Secret Quest Mini Game 🎮
+   ========================= */
+const found = new Set();
+const totalNeeded = 4;
+
+function updateQuestUI(){
+  $('#quest-count').text(found.size);
+}
+
+function openQuestModal(){
+  const $m = $('#quest-modal');
+  $m.fadeIn(150).css('display','flex').attr('aria-hidden','false');
+
+  // celebrate
+  if (typeof window.confettiBurst === "function") window.confettiBurst();
+  else {
+    for (let i = 0; i < 30; i++) {
+      const c = $('<div style="position:fixed; width:10px; height:10px; z-index:999"></div>');
+      c.css({ top: '50%', left: '50%', background: ['#ff4d6d', '#d4af37', '#fff'][Math.floor(Math.random()*3)] });
+      $('body').append(c);
+      c.animate({ top: Math.random()*100+'%', left: Math.random()*100+'%', opacity: 0 }, 1600, function(){ $(this).remove(); });
+    }
+  }
+}
+
+function closeQuestModal(){
+  const $m = $('#quest-modal');
+  $m.fadeOut(150, function(){
+    $m.css('display','none').attr('aria-hidden','true');
+  });
+}
+
+$(document).on('click touchstart', '.quest-token', function(e){
+  if (e.type === 'touchstart') e.preventDefault();
+
+  const token = $(this).data('token');
+  if (!token || found.has(token)) return;
+
+  found.add(token);
+  $(this).addClass('found');
+
+  updateQuestUI();
+
+  // tiny feedback
+  $(this).text('✅');
+
+  if (found.size >= totalNeeded) {
+    setTimeout(openQuestModal, 300);
+  }
+});
+
+$('#quest-modal').on('click', function(e){
+  if (e.target === this) closeQuestModal();
+});
+$('#quest-modal .quest-close').on('click', closeQuestModal);
+
+updateQuestUI();
+
+
+
+// Mobile hint toggle
+const $questBadge = $('#quest-badge');
+
+$questBadge.on('click touchstart', function(e){
+  if (e.type === 'touchstart') e.preventDefault();
+  $(this).toggleClass('show-hint');
+  if ($(this).hasClass('show-hint')) {
+    setTimeout(() => $(this).removeClass('show-hint'), 3000);
+  }
+});
+
 });

@@ -491,7 +491,7 @@ body::before{
 /* big love animation */
 .love-big {
   margin-top: 28px;
-  font-size: clamp(2.8rem, 8vw, 4.5rem);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
   font-weight: 800;
   letter-spacing: 0.12em;
   color: var(--romantic-pink);
@@ -511,4 +511,213 @@ body::before{
   .btn-glow{ padding: 14px 28px; }
   .bouquet-display{ height: 130px; font-size: 2.35rem; }
   #music-tooltip{ display:none; }
+}
+
+
+
+
+/* secert  */
+
+
+/* =========================
+   Secret Quest (Mini Game)
+   ========================= */
+.quest-badge{
+  position: fixed;
+    overflow: visible;
+
+  left: 14px;
+  bottom: 18px;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 55px rgba(0,0,0,0.35);
+  color: rgba(248,249,250,0.92);
+  font-size: 0.95rem;
+  user-select: none;
+}
+.quest-badge .quest-icon{
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(255,77,109,0.14);
+  border: 1px solid rgba(255,77,109,0.22);
+}
+.quest-badge strong{ color: var(--primary-gold); }
+
+/* hidden clickable tokens */
+.quest-token{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  /* background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12); */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 999999;
+}
+.quest-token:hover{
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.32);
+}
+.quest-token.found{
+  opacity: 0.55;
+  transform: scale(0.98);
+  filter: grayscale(0.2);
+}
+
+/* modal */
+.quest-modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(0,0,0,0.78);
+  z-index: 2600;
+}
+.quest-card{
+  width: min(660px, 96vw);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 26px 80px rgba(0,0,0,0.55);
+  padding: 18px 18px 16px;
+  text-align: center;
+}
+.quest-title{
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  color: var(--primary-gold);
+  margin-bottom: 10px;
+  font-size: 1.15rem;
+}
+.quest-body{
+  margin: 0 auto 14px;
+  color: rgba(248,249,250,0.92);
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+
+
+/* Quest Hint Tooltip */
+/* Quest Hint Tooltip (Responsive + Mobile Tap Support) */
+.quest-hint{
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(6px);
+
+  width: max-content;
+  max-width: min(280px, 80vw);   /* ✅ responsive */
+  white-space: normal;           /* ✅ allows wrapping */
+
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.35;
+
+  color: rgba(248,249,250,0.95);
+  background: rgba(0,0,0,0.65);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 45px rgba(0,0,0,0.45);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  z-index: 99999;               /* ✅ ensure always on top */
+}
+
+/* Arrow */
+.quest-hint::after{
+  content:"";
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0,0,0,0.65) transparent transparent transparent;
+}
+
+/* Desktop hover */
+.quest-badge:hover .quest-hint{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ✅ Mobile tap: show via JS toggle class */
+.quest-badge.show-hint .quest-hint{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* Quest Hint Tooltip (Responsive + Mobile Tap Support) */
+.quest-hint{
+  position: absolute;
+  left: 75%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(6px);
+
+  width: max-content;
+  max-width: min(280px, 620px);   /* ✅ responsive */
+  white-space: normal;           /* ✅ allows wrapping */
+
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.35;
+
+  color: rgba(248,249,250,0.95);
+  background: rgba(0,0,0,0.65);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 45px rgba(0,0,0,0.45);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  z-index: 99999;               /* ✅ ensure always on top */
+}
+
+/* Arrow */
+.quest-hint::after{
+  content:"";
+  position:absolute;
+  top:100%;
+  right:0%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0,0,0,0.65) transparent transparent transparent;
+}
+
+/* Desktop hover */
+.quest-badge:hover .quest-hint{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ✅ Mobile tap: show via JS toggle class */
+.quest-badge.show-hint .quest-hint{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
